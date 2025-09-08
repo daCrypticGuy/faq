@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FAQ — Häufig gestellte Fragen</title>
+
+  <!-- Schrift -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#6ee7b7;
+      --muted:#98a0b3;
+      --glass: rgba(255,255,255,0.03);
+      --shadow: 0 6px 20px rgba(2,6,23,0.6);
+      --radius:14px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(110,231,183,0.06), transparent 6%),
+                  radial-gradient(1000px 500px at 95% 90%, rgba(96,165,250,0.04), transparent 6%),
+                  linear-gradient(180deg, var(--bg), #071025 80%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:48px 24px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      gap:28px;
+    }
+
+    .container{
+      width:100%;
+      max-width:1100px;
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Sidebar / Intro */
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+      border: 1px solid rgba(255,255,255,0.03);
+      position:sticky;
+      top:28px;
+      height:fit-content;
+    }
+
+    .logo{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+
+    .logo .mark{
+      width:48px;height:48px;border-radius:10px;
+      background: linear-gradient(135deg, var(--accent), #60a5fa);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:#032;box-shadow: 0 6px 18px rgba(6,95,70,0.12);
+      font-family:monospace;
+    }
+
+    h1{
+      margin:0 0 6px 0;
+      font-size:20px;
+      letter-spacing:-0.2px;
+    }
+    .subtitle{
+      margin:0;color:var(--muted);font-size:13px;
+    }
+
+    .search{
+      margin-top:18px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    .search input{
+      flex:1;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.03);
+      color:inherit;
+      padding:10px 12px;border-radius:10px;
+      outline:none;font-size:14px;
+      transition:box-shadow .18s, border-color .18s;
+    }
+    .search input:focus{box-shadow:0 6px 20px rgba(14,20,40,0.6); border-color: rgba(110,231,183,0.14)}
+
+    .help-list{margin-top:18px; display:flex;flex-direction:column; gap:8px;}
+    .chip{
+      display:inline-flex;gap:8px;align-items:center;padding:8px 10px;
+      background:rgba(255,255,255,0.02);border-radius:999px;font-size:13px;color:var(--muted);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    /* FAQ column */
+    .faq-wrap{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .faq-header{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;
+    }
+    .faq-header h2{margin:0;font-size:18px}
+    .faq-counter{color:var(--muted);font-size:13px}
+
+    /* Accordion */
+    .accordion{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+    .item{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.02);
+      transition:transform .16s, box-shadow .16s;
+      overflow:hidden;
+    }
+    .item:hover{transform:translateY(-4px);box-shadow:0 18px 32px rgba(2,6,23,0.45)}
+    .q{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
+    }
+    .q .left{display:flex;gap:12px;align-items:center}
+    .q .icon{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg, rgba(110,231,183,0.08), rgba(96,165,250,0.03));
+      display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--accent);
+      font-size:14px;border:1px solid rgba(110,231,183,0.06)
+    }
+    .q h3{margin:0;font-size:15px}
+    .meta{color:var(--muted);font-size:13px;margin-top:6px}
+
+    .a{
+      margin-top:10px;color:#cfe9dd;font-size:14px;line-height:1.45;
+      max-height:0;overflow:hidden;transition:max-height .28s ease,opacity .18s;
+      opacity:0;
+    }
+    .item.open .a{max-height:600px;opacity:1}
+
+    /* small utilities */
+    .tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .container{grid-template-columns:1fr; padding:0; max-width:940px}
+      .hero{position:relative;top:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <aside class="hero" aria-label="FAQ Einführung">
+      <div class="logo">
+        <div class="mark">FAQ</div>
+        <div>
+          <h1>Häufig gestellte Fragen</h1>
+          <p class="subtitle">Schnelle Antworten zu Produkt, Zahlung & Support</p>
+        </div>
+      </div>
+
+      <div class="search" aria-hidden="false">
+        <input id="search" type="search" placeholder="Frage suchen…" aria-label="Frage suchen" />
+      </div>
+
+      <div class="help-list" aria-hidden="false">
+        <div class="chip">Produkt</div>
+        <div class="chip">Bestellung</div>
+        <div class="chip">Zahlung</div>
+        <div class="chip">Technik</div>
+      </div>
+
+      <div class="tags" aria-hidden="true" style="margin-top:18px;">
+        <div class="tag">Neu: Lieferzeiten</div>
+        <div class="tag">Update: Datenschutz</div>
+        <div class="tag">Info: Rückgabe</div>
+      </div>
+    </aside>
+
+    <section class="faq-wrap" aria-labelledby="faqTitle">
+      <div class="faq-header">
+        <h2 id="faqTitle">Fragen & Antworten</h2>
+        <div class="faq-counter"><span id="visibleCount">6</span> Einträge</div>
+      </div>
+
+      <div class="accordion" id="accordion" role="list">
+        <!-- Item 1 -->
+        <article class="item" data-tags="produkt bestellung" role="listitem">
+          <div class="q" tabindex="0">
+            <div class="left">
+              <div class="icon">P</div>
+              <div>
+                <h3>Wie lange dauert die Lieferung?</h3>
+                <div class="meta">Standardversand: 3–7 Werktage</div>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">▾</div>
+          </div>
+          <div class="a">
+            Unsere Standardlieferzeit beträgt in der Regel <strong>3–7 Werktage</strong>. Expressversand ist verfügbar (1–2 Werktage) gegen Aufpreis. Lieferzeiten können saisonal variieren.
+          </div>
+        </article>
+
+        <!-- Item 2 -->
+        <article class="item" data-tags="zahlung refund" role="listitem">
+          <div class="q" tabindex="0">
+            <div class="left">
+              <div class="icon">Z</div>
+              <div>
+                <h3>Welche Zahlungsarten werden akzeptiert?</h3>
+                <div class="meta">Kreditkarte, PayPal, SEPA, Sofort</div>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">▾</div>
+          </div>
+          <div class="a">
+            Wir akzeptieren gängige Kreditkarten (Visa, Mastercard), PayPal, SEPA-Lastschrift und Sofortüberweisung. Bei Problemen mit Zahlungskarten kontaktiere bitte deine Bank oder unseren Support.
+          </div>
+        </article>
+
+        <!-- Item 3 -->
+        <article class="item" data-tags="retoure support" role="listitem">
+          <div class="q" tabindex="0">
+            <div class="left">
+              <div class="icon">R</div>
+              <div>
+                <h3>Wie funktioniert die Rückgabe?</h3>
+                <div class="meta">Retouren innerhalb 30 Tage</div>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">▾</div>
+          </div>
+          <div class="a">
+            Rücksendungen sind innerhalb von <strong>30 Tagen</strong> nach Lieferung möglich. Artikel müssen unbenutzt und in Originalverpackung sein. Rücksendung über das Retourenportal in deinem Kundenkonto.
+          </div>
+        </article>
+
+        <!-- Item 4 -->
+        <article class="item" data-tags="account sicherheit" role="listitem">
+          <div class="q" tabindex="0">
+            <div class="left">
+              <div class="icon">A</div>
+              <div>
+                <h3>Wie ändere ich mein Passwort?</h3>
+                <div class="meta">Sicherheits-Empfehlungen</div>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">▾</div>
+          </div>
+          <div class="a">
+            Gehe zu Konto → Einstellungen → Passwort ändern. Verwende ein einzigartiges Passwort (mind. 12 Zeichen) und aktiviere die Zwei-Faktor-Authentifizierung (2FA) für zusätzliche Sicherheit.
+          </div>
+        </article>
+
+        <!-- Item 5 -->
+        <article class="item" data-tags="versand tracking" role="listitem">
+          <div class="q" tabindex="0">
+            <div class="left">
+              <div class="icon">T</div>
+              <div>
+                <h3>Wie kann ich meine Sendung verfolgen?</h3>
+                <div class="meta">Tracking-Link per E-Mail</div>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">▾</div>
+          </div>
+          <div class="a">
+            Nach Versand erhältst du eine E-Mail mit einem Tracking-Link. Du kannst außerdem im Bereich "Bestellungen" in deinem Konto die aktuelle Sendungsverfolgung einsehen.
+          </div>
+        </article>
+
+        <!-- Item 6 -->
+        <article class="item" data-tags="technik support" role="listitem">
+          <div class="q" tabindex="0">
+            <div class="left">
+              <div class="icon">S</div>
+              <div>
+                <h3>Ich habe ein technisches Problem — was nun?</h3>
+                <div class="meta">Support kontaktieren</div>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">▾</div>
+          </div>
+          <div class="a">
+            Bitte kontaktiere unseren Support mit einer Fehlerbeschreibung, Screenshots und Browser-/Geräteinformationen. Wir antworten üblicherweise innerhalb 24–48 Stunden.
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Accordion open/close
+    (function(){
+      const accordion = document.getElementById('accordion');
+      const items = Array.from(accordion.querySelectorAll('.item'));
+      const search = document.getElementById('search');
+      const visibleCount = document.getElementById('visibleCount');
+
+      function closeAll(except){
+        items.forEach(it=>{
+          if(it!==except) it.classList.remove('open');
+        });
+      }
+
+      // Toggle by click or keyboard (Enter/Space)
+      items.forEach(item=>{
+        const q = item.querySelector('.q');
+        q.addEventListener('click', ()=>{
+          const open = item.classList.toggle('open');
+          if(open) closeAll(item);
+        });
+        q.addEventListener('keydown', (e)=>{
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            q.click();
+          }
+        });
+      });
+
+      // Simple search/filter by question text and data-tags
+      function updateFilter(){
+        const term = (search.value || '').trim().toLowerCase();
+        let count = 0;
+        items.forEach(item=>{
+          const qText = item.querySelector('h3').textContent.toLowerCase();
+          const aText = item.querySelector('.a').textContent.toLowerCase();
+          const tags = (item.dataset.tags || '').toLowerCase();
+          const keep = term === '' || qText.includes(term) || aText.includes(term) || tags.includes(term);
+          item.style.display = keep ? '' : 'none';
+          if(keep) count++;
+        });
+        visibleCount.textContent = count;
+      }
+
+      search.addEventListener('input', updateFilter);
+      updateFilter();
+
+      // Close when clicking outside
+      document.addEventListener('click', (e)=>{
+        if(!accordion.contains(e.target)){
+          closeAll();
+        }
+      });
+
+      // Accessibility: collapse all on Escape
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') closeAll();
+      });
+    })();
+  </script>
+</body>
+</html>
